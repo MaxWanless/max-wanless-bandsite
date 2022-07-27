@@ -1,6 +1,12 @@
 @use './breakpoints' as *;
 
-@mixin Tablet {
+@mixin mobile {
+    @media  (min-width:$breakpoint-mobile) {
+        @content;
+    }
+}
+
+@mixin tablet {
     @media (min-width: $breakpoint-tablet) {
         @content;
     }
@@ -10,4 +16,9 @@
     @media (min-width:$breakpoint-desktop) {
         @content;
     }
+}
+
+@mixin bandsite-logo{
+    max-width: 120px;
+    max-height: 20px;
 }

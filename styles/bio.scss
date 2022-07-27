@@ -1,50 +1,241 @@
-@use './partials/fonts' as *;
-@use './partials/mixins' as *;
-@use './partials/colors'as *;
+@use "./partials/fonts" as *;
+@use "./partials/mixins" as *;
+@use "./partials/colors" as *;
 
-*, *::before, *::after{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-body{
-    font-family: 'Avenir';
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Avenir";
 }
 
+.header {
+  width: 100%;
+  background-color: $primary-color-black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @include tablet {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  &__logo {
+    @include bandsite-logo;
+    margin-top: 1rem;
+    @include tablet {
+      margin: 0 5vw;
+    }
+  }
+  &__link {
+    text-decoration: none;
+  }
+}
 
-.header{
+.nav {
+  &__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+    text-align: center;
+    margin-top: 1rem;
+    width: 100%;
+    @include tablet {
+      width: 25vw;
+    }
+    text-decoration: none;
+  }
+  &__item {
+    text-decoration: none;
+    text-align: center;
+    color: $secondary-color-mecury;
+    width: 50vw;
+    padding-bottom: 1rem;
+    @include tablet {
+      height: 100%;
+      width: 100%;
+    }
+    &--selected {
+      font-weight: bold;
+      color: $primary-color-white;
+      border-bottom: 4px solid $primary-color-white;
+    }
+    &:hover {
+      color: $primary-color-white;
+      border-bottom: 4px solid $primary-color-white;
+    }
+  }
+  &__link {
+    text-decoration: none;
+    height: 100%;
+  }
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  height: 50vw;
+  width: 100vw;
+  background-image: url("../assets/Images/hero-bio.jpg");
+  background-size: cover;
+  &__title {
+    margin-left: 5vw;
+    color: $primary-color-white;
+    z-index: 1;
+  }
+  &__overlay {
+    background-color: $primary-color-black;
+    opacity: 0.5;
+    position: absolute;
+    width: 100vw;
+    height: 50vw;
+  }
+}
+
+.bio {
+  display: flex;
+  flex-direction: column;
+  padding: 5vw;
+  width: 100vw;
+  &__title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.photo-gallery {
+  background-color: $secondary-color-mecury;
+  &__title {
+    font-size: 2rem;
+    align-self: flex-start;
+    margin: 5vw;
+  }
+  &__block {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: $primary-color-black;
-    color: $primary-color-white;
-    width: 100%;
-    &__title{
-        margin-top: 1rem;
-        font-weight: normal;
-        padding-bottom: 1rem;
+    margin: 0 5vw;
+    @include tablet {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-content: space-evenly;
     }
+  }
+  &__item {
+    margin: 1.5vw 0;
+    @include tablet {
+      width: 30%;
+      margin: 1.25vw 0;
+    }
+  }
+  &__img {
+    width: 100%;
+  }
 }
 
-.nav{
-
-    &__list{
-        display: flex;
-        justify-content: space-between;
-        list-style: none;
-        width: 100vw;
+.footer {
+  width: 100%;
+  background-color: $primary-color-black;
+  color: $secondary-color-mecury;
+  padding: 1.25rem;
+  @include tablet {
+    padding: 2rem;
+  }
+  &__block {
+    display: flex;
+    flex-direction: column;
+    @include tablet {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
     }
-    &__item{
-        color: $primary-color-white;
-        padding-bottom: 1rem;
-        width:50vw;
-        text-align: center;
-        &--selected{
-            border-bottom: 4px solid $primary-color-white;
-        }
-        }
-    &__link{
-        text-decoration: none;
+  }
+  &__title {
+    font-weight: 500;
+    font-size: 2rem;
+    padding: 1.5rem 0;
+  }
+  &__social {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 10rem;
+    padding-bottom: 1rem;
+    @include tablet {
+      padding: 0;
+      margin: 0 2rem;
+      }
+  }
+  &___social-icon {
+    height: 2rem;
+  }
+  &__logo {
+    display: none;
+    @include tablet {
+      display: inline-block;
+      height: 2rem;
     }
+  }
+  &__contact {
+    padding-bottom: 3rem;
+    @include tablet {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    @include desktop {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 60vw;
+    }
+    &-card {
+      padding-bottom: 2rem;
+    }
+    &-name {
+      font-size: 1.1rem;
+      font-weight: normal;
+      padding-bottom: 0.25rem;
+    }
+    &-title {
+      font-size: 1.1rem;
+      padding-bottom: 1.5rem;
+    }
+    &-address {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    &-email {
+      font-size: 1.1rem;
+      text-decoration: none;
+      color: $secondary-color-mecury;
+    }
+  }
+  &__copyright {
+    &-logo {
+      @include bandsite-logo;
+      margin-bottom: 1.5rem;
+      @include tablet {
+        display: none;
+      }
+    }
+    &-text {
+      font-size: 0.8rem;
+      font-weight: normal;
+    }
+  }
 }
