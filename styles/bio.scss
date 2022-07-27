@@ -86,32 +86,78 @@ body {
 .hero {
   display: flex;
   align-items: center;
-  height: 50vw;
-  width: 100vw;
+  height: 65vw;
+  width: 100%;
   background-image: url("../assets/Images/hero-bio.jpg");
   background-size: cover;
-  &__title {
-    margin-left: 5vw;
-    color: $primary-color-white;
-    z-index: 1;
-  }
   &__overlay {
+    width: inherit;
+    height: inherit;
+    display: inherit;
+    align-items: center;
+    justify-content: flex-start;
     background-color: $primary-color-black;
     opacity: 0.5;
+    padding: 1.5rem;
+  }
+  &__title {
+    font-size: 2rem;
+    font-weight: 100;
+    margin-left: 2rem;
     position: absolute;
-    width: 100vw;
-    height: 50vw;
+    color: $primary-color-white;
+    z-index: 1;
+    @include tablet {
+      font-size: 5rem;
+      font-weight: bold;
+      margin-left: 3rem;
+    }
   }
 }
 
 .bio {
   display: flex;
   flex-direction: column;
-  padding: 5vw;
   width: 100vw;
+  padding: 1rem;
+  @include tablet {
+    padding: 2rem 10vw;
+  }
+  @include desktop{
+    padding: 2rem 15vw;
+  }
   &__title {
-    font-size: 1.75rem;
+    font-size: 2rem;
+    margin: 1rem 0;
+  }
+  &__img {
+    height: 50vw;
     margin-bottom: 1rem;
+  }
+  &__qoute-text {
+    margin-bottom: 1rem;
+  }
+  &__quote-author {
+    margin-bottom: 1rem;
+  }
+  &__sub-title {
+    font-size: 1.25rem;
+    padding-bottom: 1rem;
+  }
+  &__text-block {
+    display: flex;
+    flex-direction: column;
+    @include tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+  &__text {
+    padding-top: 1rem;
+    @include tablet {
+      width: 45%;
+    }
   }
 }
 
@@ -178,7 +224,7 @@ body {
     @include tablet {
       padding: 0;
       margin: 0 2rem;
-      }
+    }
   }
   &___social-icon {
     height: 2rem;
