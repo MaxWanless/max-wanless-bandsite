@@ -26,16 +26,17 @@ body {
   justify-content: center;
   align-items: center;
   @include tablet {
-    display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
   }
   &__logo {
-    @include bandsite-logo;
-    margin-top: 1rem;
+    height: 1.75rem;
+    margin-top: 1.5rem;
     @include tablet {
-      margin: 0 5vw;
+      margin: 0 2.25rem;
+    }
+    @include desktop {
+      margin: 0 4rem 0 8rem;
     }
   }
   &__link {
@@ -44,28 +45,44 @@ body {
 }
 
 .nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style: none;
+  @include tablet {
+    justify-content: flex-start;
+    align-items: center;
+  }
   &__list {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    list-style: none;
-    text-align: center;
     margin-top: 1rem;
-    width: 100%;
     @include tablet {
-      width: 25vw;
+      margin-top: 0;
     }
-    text-decoration: none;
   }
   &__item {
-    text-decoration: none;
     text-align: center;
     color: $secondary-color-mecury;
     width: 50vw;
-    padding-bottom: 1rem;
+    height: 100%;
+    padding-bottom: 1rem ;
     @include tablet {
-      height: 100%;
-      width: 100%;
+      padding: 2rem 0;
+      width: auto;
+      margin: 0 2.25rem;
+    }
+    &-link {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: $secondary-color-mecury;
+      &:hover {
+        color: $primary-color-white;
+      }
     }
     &--selected {
       font-weight: bold;
@@ -73,13 +90,8 @@ body {
       border-bottom: 4px solid $primary-color-white;
     }
     &:hover {
-      color: $primary-color-white;
       border-bottom: 4px solid $primary-color-white;
     }
-  }
-  &__link {
-    text-decoration: none;
-    height: 100%;
   }
 }
 
@@ -93,52 +105,72 @@ body {
   &__overlay {
     width: inherit;
     height: inherit;
-    display: inherit;
-    align-items: center;
-    justify-content: flex-start;
     background-color: $primary-color-black;
     opacity: 0.5;
-    padding: 1.5rem;
   }
   &__title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 100;
-    margin-left: 2rem;
+    margin-left: 1rem;
     position: absolute;
     color: $primary-color-white;
     z-index: 1;
     @include tablet {
-      font-size: 5rem;
+      font-size: 3.75rem;
       font-weight: bold;
-      margin-left: 3rem;
+      margin-left: 2.25rem;
+    }
+    @include desktop {
+      margin-left: 8rem;
     }
   }
 }
 
 .bio {
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  padding: 1rem;
-  @include tablet {
-    padding: 2rem 10vw;
-  }
-  @include desktop{
-    padding: 2rem 15vw;
-  }
   &__title {
-    font-size: 2rem;
-    margin: 1rem 0;
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1rem 1rem;
+    @include tablet {
+      font-size: 2.25rem;
+      margin: 3rem 0 2.25rem 2.25rem;
+    }
+    @include desktop {
+      margin: 3rem 0 2.25rem 8rem;
+    }
+  }
+  &__content{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    padding: 0 1rem 1rem;
+    @include tablet {
+      padding: 0 5rem 2.25rem ;
+    }
+    @include desktop {
+      padding: 0 13rem 2.25rem;
+    }
   }
   &__img {
     height: 50vw;
     margin-bottom: 1rem;
+    @include tablet {
+      height: 40vw;
+      margin-bottom: 2.25rem;
+    }
+    @include desktop {
+      height: 35vw;
+    }
   }
   &__qoute-text {
     margin-bottom: 1rem;
+    font-weight: bold;
   }
   &__quote-author {
     margin-bottom: 1rem;
+    font-weight: bold;
+    @include tablet {
+      margin-bottom: 2.25rem;
+    }
   }
   &__sub-title {
     font-size: 1.25rem;
@@ -163,26 +195,36 @@ body {
 
 .photo-gallery {
   background-color: $secondary-color-mecury;
-  &__title {
-    font-size: 2rem;
-    align-self: flex-start;
-    margin: 5vw;
+  padding: 0 1rem 1rem 1rem ;
+  @include tablet{
+    padding: 0 2.25rem 2.25rem 2.25rem ;
+  }
+  @include desktop{
+    padding: 0 8rem 2.25rem 8rem ;
+  }
+  
+  &__title { 
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1rem 0;
+    @include tablet {
+      font-size: 2.25rem;
+      margin: 3rem 0 2.25rem 0;
+    }
   }
   &__block {
     display: flex;
     flex-direction: column;
-    margin: 0 5vw;
     @include tablet {
       flex-direction: row;
       flex-wrap: wrap;
-      justify-content: space-evenly;
+      justify-content: space-between;
       align-content: space-evenly;
     }
   }
   &__item {
     margin: 1.5vw 0;
     @include tablet {
-      width: 30%;
+      width: 31%;
       margin: 1.25vw 0;
     }
   }
@@ -195,9 +237,9 @@ body {
   width: 100%;
   background-color: $primary-color-black;
   color: $secondary-color-mecury;
-  padding: 1.25rem;
+  padding:  0 1rem 1rem 1rem;
   @include tablet {
-    padding: 2rem;
+    padding: 0 2.25rem 2.25rem 2.25rem;
   }
   &__block {
     display: flex;
@@ -207,13 +249,15 @@ body {
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 2rem;
     }
   }
   &__title {
-    font-weight: 500;
-    font-size: 2rem;
-    padding: 1.5rem 0;
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1rem 0;
+    @include tablet {
+      font-size: 2.25rem;
+      margin: 3rem 0 2.25rem 0;
+    }
   }
   &__social {
     display: flex;
