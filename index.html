@@ -143,6 +143,41 @@
         </div>
       </section>
     </section>
+
+    <!-- Comment Section -->
+
+    <section class="comment-section">
+      <h2 class="comment-section__title">Join The Conversation</h2>
+
+      <div class="comment-section__form-container">
+        <img
+          class="comment-section__img"
+          src="./assets/Images/Mohan-muruge.jpg"
+          alt="profile picture"
+        />
+        <form class="comment-section__form">
+          <h4 class="comment-section__sub-title">Name</h4>
+          <textarea
+            class="comment-section__text-input comment-section__text-input--name"
+            name="name"
+            rows="10"
+            cols="50"
+            placeholder="Enter your name"
+          ></textarea>
+          <h4 class="comment-section__sub-title">Comment</h4>
+          <textarea
+            class="comment-section__text-input comment-section__text-input--comment"
+            name="comment"
+            rows="10"
+            cols="50"
+            placeholder="Add a new comment"
+          ></textarea>
+          <button class="comment-section__button">COMMENT</button>
+        </form>
+      </div>
+      <div class="comment-feed"></div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
       <!-- Footer Main Block -->
@@ -200,7 +235,9 @@
               US / South America / Japan
             </p>
           </div>
-          <a class="footer__contact-email" href="mailto:pearl.greg@limitlessag.com"
+          <a
+            class="footer__contact-email"
+            href="mailto:pearl.greg@limitlessag.com"
             >pearl.greg@limitlessag.com</a
           >
         </div>
@@ -212,7 +249,9 @@
             <p class="footer__contact-address-text">Booking Agent for</p>
             <p class="footer__contact-address-text">UK / EU / AU</p>
           </div>
-          <a class="footer__contact-email" href="mailto:cwhyte@archentertainment.com"
+          <a
+            class="footer__contact-email"
+            href="mailto:cwhyte@archentertainment.com"
             >cwhyte@archentertainment.com</a
           >
         </div>
@@ -228,5 +267,6 @@
         </p>
       </div>
     </footer>
+    <script src="./scripts/index-page.js"></script>
   </body>
 </html>

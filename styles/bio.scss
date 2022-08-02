@@ -3,7 +3,6 @@
 @use "./partials/colors" as *;
 @use "./partials/global" as *;
 
-
 .hero {
   display: flex;
   align-items: center;
@@ -143,9 +142,80 @@
     width: 100%;
     filter: grayscale(100%);
     transition: 0.25s;
-    &:hover{
-    filter: grayscale(0%);
+    &:hover {
+      filter: grayscale(0%);
     }
   }
 }
 
+.comment-section {
+  padding: 0 1rem 0 1rem;
+  &__form-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__img {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    margin-top: 1.4rem;
+    @include tablet {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+  &__title {
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1rem 1rem;
+    @include tablet {
+      font-size: 2.25rem;
+      margin: 3rem 0 2.25rem 2.25rem;
+    }
+    @include desktop {
+      margin: 3rem 0 2.25rem 8rem;
+    }
+  }
+  &__sub-title {
+    color: $primary-color-silver;
+  }
+  &__text-input {
+    height: 2.25rem;
+    width: 100%;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    margin-top: 0.25rem;
+    border: 1px solid $secondary-color-mecury;
+    margin-bottom: 1rem;
+    &--comment{
+      height: 5rem;
+    }
+    @include tablet {
+      height: 3rem;
+      padding: 1rem;
+    }
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+  }
+  &__button {
+    background-color: $primary-color-black;
+    color: $primary-color-white;
+    height: 2.5rem;
+    width: 100%;
+    border-style: none;
+    border-radius: 0.25rem;
+    transition: 0.25s;
+    &:hover {
+      background-color: $secondary-color-dark-black;
+    }
+    @include tablet {
+      min-width: 9.375rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}
