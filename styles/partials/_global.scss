@@ -1,0 +1,200 @@
+@use "./fonts" as *;
+@use "./mixins" as *;
+@use "./colors" as *;
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Avenir";
+}
+
+
+.header {
+    width: 100%;
+    background-color: $primary-color-black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @include tablet {
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+    &__logo {
+      height: 1.75rem;
+      margin-top: 1.5rem;
+      @include tablet {
+        margin: 0 2.25rem;
+      }
+      @include desktop {
+        margin: 0 4rem 0 8rem;
+      }
+    }
+    &__link {
+      text-decoration: none;
+    }
+  }
+  
+  .nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style: none;
+    @include tablet {
+      justify-content: flex-start;
+      align-items: center;
+    }
+    &__list {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-top: 1rem;
+      @include tablet {
+        margin-top: 0;
+      }
+    }
+    &__item {
+      text-align: center;
+      color: $secondary-color-mecury;
+      width: 50vw;
+      height: 100%;
+      padding-bottom: 1rem;
+      @include tablet {
+        padding: 2rem 0;
+        width: auto;
+        margin: 0 2.25rem;
+      }
+      &-link {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: $secondary-color-mecury;
+        &:hover {
+          color: $primary-color-white;
+        }
+      }
+      &--selected {
+        font-weight: bold;
+        color: $primary-color-white;
+        border-bottom: 4px solid $primary-color-white;
+      }
+      &:hover {
+        border-bottom: 4px solid $primary-color-white;
+      }
+    }
+  }
+
+  .footer {
+    width: 100%;
+    background-color: $primary-color-black;
+    color: $secondary-color-mecury;
+    padding: 0 1rem 1rem 1rem;
+    @include tablet {
+      padding: 0 2.25rem 2.25rem 2.25rem;
+    }
+    &__block {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      @include tablet {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        // justify-content: space-between;
+        justify-content: flex-start;
+      }
+    }
+    &__title {
+      font-size: 1.5rem;
+      margin: 1.5rem 0 1rem 0;
+      @include tablet {
+        font-size: 2.25rem;
+        margin: 3rem 0 2.25rem 0;
+      }
+    }
+    &__social {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 10rem;
+      padding-bottom: 1rem;
+      @include tablet {
+        padding: 0;
+        margin: 0 2rem;
+      }
+    }
+    &___social-icon {
+      height: 2rem;
+    }
+    &__logo {
+      display: none;
+      @include tablet {
+        display: inline-block;
+        position: absolute;
+        left: 70% ;
+        height: 2rem;
+      }
+    }
+    &__contact {
+      padding-bottom: 3rem;
+      @include tablet {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      @include desktop {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 60vw;
+      }
+      &-card {
+        padding-bottom: 2rem;
+      }
+      &-name {
+        font-size: 1.1rem;
+        font-weight: normal;
+        padding-bottom: 0.25rem;
+      }
+      &-title {
+        font-size: 1.1rem;
+        padding-bottom: 1.5rem;
+      }
+      &-address {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+      }
+      &-email {
+        font-size: 1.1rem;
+        text-decoration: none;
+        color: $secondary-color-mecury;
+      }
+    }
+    &__copyright {
+      &-logo {
+        @include bandsite-logo;
+        margin-bottom: 1.5rem;
+        @include tablet {
+          display: none;
+        }
+      }
+      &-text {
+        font-size: 0.8rem;
+        font-weight: normal;
+      }
+    }
+  }
+  
