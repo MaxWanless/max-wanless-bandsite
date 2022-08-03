@@ -413,15 +413,23 @@ body {
 .comment-section {
   padding: 0 1rem 0 1rem;
 }
+@media (min-width: 768px) {
+  .comment-section {
+    padding: 0 5rem 0 5rem;
+  }
+}
 .comment-section__form-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .comment-section__img {
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 50%;
   margin-top: 1.4rem;
+}
+.comment-section__img-img-container {
+  width: 2.25rem;
 }
 @media (min-width: 768px) {
   .comment-section__img {
@@ -455,9 +463,9 @@ body {
   margin-top: 0.25rem;
   border: 1px solid #E1E1E1;
   margin-bottom: 1rem;
-}
-.comment-section__text-input--comment {
-  height: 5rem;
+  overflow-y: hidden;
+  resize: none;
+  background-color: #FAFAFA;
 }
 @media (min-width: 768px) {
   .comment-section__text-input {
@@ -465,11 +473,13 @@ body {
     padding: 1rem;
   }
 }
+.comment-section__text-input--comment {
+  height: 5rem;
+}
 .comment-section__form {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  margin-left: 1rem;
+  width: 80%;
   margin-bottom: 1rem;
 }
 .comment-section__button {
@@ -489,5 +499,34 @@ body {
     min-width: 9.375rem;
     padding-left: 2rem;
     padding-right: 2rem;
+    width: 25vw;
+    align-self: flex-end;
   }
+}
+
+.comment {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1rem 0 1rem 0;
+  border-top: 1px solid #E1E1E1;
+  border-bottom: 1px solid #E1E1E1;
+}
+.comment__img {
+  height: 2.25rem;
+  width: 2.25rem;
+  background-color: #E1E1E1;
+  border-radius: 50%;
+  border-style: none;
+}
+.comment__img-container {
+  width: 2.25rem;
+}
+.comment__content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+.comment__content-header-container {
+  display: flex;
+  justify-content: space-between;
 }/*# sourceMappingURL=bio.css.map */

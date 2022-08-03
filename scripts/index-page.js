@@ -19,58 +19,102 @@ let commentsArr = [
   },
 ];
 
+// Build Comment section from array
 function buildCommentSection(Arr) {
   const parentContainer = document.querySelector(".comment-feed");
-
   for (let i = 0; i < Arr.length; i++) {
-    // Creat new comment container
-    const commentContainer = document.createElement("div");
-    commentContainer.classList.add("comment");
-    parentContainer.appendChild(commentContainer);
-
-    // Create Profile picture image container
-    const imgContainer = document.createElement("div");
-    imgContainer.classList.add("comment__img-container");
-    commentContainer.appendChild(imgContainer);
-
-    // // create profile image in image container
-    const commentImage = document.createElement("img");
-    commentImage.classList.add("comment__img");
-    imgContainer.appendChild(commentImage);
-
-    // // Create container for Comment content (comment text, header)
-    const contentContainer = document.createElement("div");
-    contentContainer.classList.add("comment__content-container");
-    commentContainer.appendChild(contentContainer);
-
-    // Create containter for header content (name, date)
-    const headerContainer = document.createElement("div");
-    headerContainer.classList.add("comment__content-header");
-    contentContainer.appendChild(headerContainer);
-
-    // // Create containter for comment content (comment text)
-    const commentTextContainer = document.createElement("div");
-    commentTextContainer.classList.add("comment__content-text");
-    contentContainer.appendChild(commentTextContainer);
-
-    // // Create containter for header content (name, date)
-    const commentName = document.createElement("h4");
-    commentName.classList.add("comment__content-name");
-    commentName.innerText = Arr[i]["name"];
-    headerContainer.appendChild(commentName);
-
-    // // Create containter for header content (name, date)
-    const commentDate = document.createElement("h4");
-    commentDate.classList.add("comment__content-name");
-    commentDate.innerText = Arr[i]["date"];
-    headerContainer.appendChild(commentDate);
-
-    // // Create containter for header content (name, date)
-    const commentText = document.createElement("p");
-    commentText.classList.add("comment__content-text");
-    commentText.innerText = Arr[i]["comment"];
-    commentTextContainer.appendChild(commentText);
+    createComment(Arr[i].name, Arr[i].comment, Arr[i].date, false);
   }
 }
 
 buildCommentSection(commentsArr);
+
+// Add New comment
+const commentform = document.querySelector(".comment-section__form");
+commentform.addEventListener("submit", (SubmitEvent) => {
+//   if (
+//     SubmitEvent.target.name.value != "" &&
+//     SubmitEvent.target.comment.value != ""
+//   ) {
+    SubmitEvent.preventDefault();
+    const newComment = {};
+    let postDate = new Date();
+    let day = String(postDate.getDate()).padStart(2, "0");
+    let month = String(postDate.getMonth() + 1).padStart(2, "0");
+    let year = postDate.getFullYear();
+
+    postDate = day + "/" + month + "/" + year;
+    newComment.name = SubmitEvent.target.name.value;
+    newComment.comment = SubmitEvent.target.comment.value;
+    newComment.date = postDate;
+
+    createComment(newComment.name, newComment.comment, newComment.date, true);
+    commentform.reset();
+//   } else {
+//     SubmitEvent.preventDefault();
+//     if (SubmitEvent.target.name.value != "") {
+//       SubmitEvent.target.name.style.border = "1px solid red";
+//     } else if(SubmitEvent.target.comment.value != "") {
+//       SubmitEvent.target.comment.style.border = "1px solid red";
+//     }
+//   }
+});
+
+function createComment(name, comment, date, newComment) {
+  const parentContainer = document.querySelector(".comment-feed");
+  // Creat new comment container
+  const commentContainer = document.createElement("div");
+  commentContainer.classList.add("comment");
+  parentContainer.appendChild(commentContainer);
+
+  // Create Profile picture image container
+  const imgContainer = document.createElement("div");
+  imgContainer.classList.add("comment__img-container");
+  commentContainer.appendChild(imgContainer);
+
+  // // create profile image in image container
+  const commentImage = document.createElement("img");
+  commentImage.classList.add("comment__img");
+  imgContainer.appendChild(commentImage);
+
+  // // Create container for Comment content (comment text, header)
+  const contentContainer = document.createElement("div");
+  contentContainer.classList.add("comment__content");
+  commentContainer.appendChild(contentContainer);
+
+  // Create containter for header content (name, date)
+  const headerContainer = document.createElement("div");
+  headerContainer.classList.add("comment__content-header-container");
+  contentContainer.appendChild(headerContainer);
+
+  // // Create containter for comment content (comment text)
+  const commentTextContainer = document.createElement("div");
+  commentTextContainer.classList.add("comment__content-text-container");
+  contentContainer.appendChild(commentTextContainer);
+
+  // // Create containter for header content (name, date)
+  const commentName = document.createElement("h4");
+  commentName.classList.add("comment__content-name");
+  commentName.innerText = name;
+  headerContainer.appendChild(commentName);
+
+  // // Create containter for header content (name, date)
+  const commentDate = document.createElement("h4");
+  commentDate.classList.add("comment__content-name");
+  commentDate.innerText = date;
+  headerContainer.appendChild(commentDate);
+
+  // // Create containter for header content (name, date)
+  const commentText = document.createElement("p");
+  commentText.classList.add("comment__content-text");
+  commentText.innerText = comment;
+  commentTextContainer.appendChild(commentText);
+
+  if (newComment === true) {
+    parentContainer.insertBefore(
+      commentContainer,
+      parentContainer.childNodes[0]
+    );
+  } else {
+  }
+}

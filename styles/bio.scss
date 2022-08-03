@@ -150,15 +150,21 @@
 
 .comment-section {
   padding: 0 1rem 0 1rem;
+  @include tablet {
+    padding: 0 5rem 0 5rem;
+  }
   &__form-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
   &__img {
     width: 2.25rem;
     height: 2.25rem;
     border-radius: 50%;
     margin-top: 1.4rem;
+    &-img-container{
+      width: 2.25rem;
+    }
     @include tablet {
       width: 3rem;
       height: 3rem;
@@ -186,19 +192,21 @@
     margin-top: 0.25rem;
     border: 1px solid $secondary-color-mecury;
     margin-bottom: 1rem;
-    &--comment{
-      height: 5rem;
-    }
+    overflow-y: hidden;
+    resize: none;
+    background-color: $secondary-color-alabaster;
     @include tablet {
       height: 3rem;
       padding: 1rem;
+    }
+    &--comment{
+      height: 5rem;
     }
   }
   &__form {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    margin-left: 1rem;
+    width: 80%;
     margin-bottom: 1rem;
   }
   &__button {
@@ -216,6 +224,35 @@
       min-width: 9.375rem;
       padding-left: 2rem;
       padding-right: 2rem;
+      width: 25vw;
+      align-self: flex-end;
+    }
+  }
+}
+
+.comment{
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1rem 0 1rem 0;
+  border-top: 1px solid $secondary-color-mecury;
+  border-bottom: 1px solid $secondary-color-mecury;
+  &__img{
+    height: 2.25rem;
+    width: 2.25rem;
+    background-color: $secondary-color-mecury;
+    border-radius: 50%;
+    border-style: none;
+    &-container{
+      width: 2.25rem;
+    }
+  }
+  &__content{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    &-header-container{
+      display: flex;
+      justify-content: space-between;
     }
   }
 }
