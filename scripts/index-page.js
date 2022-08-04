@@ -22,62 +22,61 @@ let commentsArr = [
 // Build Comment section from array
 function buildCommentSection(Arr) {
   const parentContainer = document.querySelector(".comment-feed");
+  // fix with proper logic
+  parentContainer.innerHTML = null;
   for (let i = 0; i < Arr.length; i++) {
-    createComment(Arr[i].name, Arr[i].comment, Arr[i].date, false);
+    createComment(Arr[i].name, Arr[i].comment, Arr[i].date);
   }
 }
-
+// Generate comment section for original array
 buildCommentSection(commentsArr);
 
-// Add New comment
+// Add New comment event handler
 const commentform = document.querySelector(".comment-section__form");
 commentform.addEventListener("submit", (SubmitEvent) => {
-//   if (
-//     SubmitEvent.target.name.value != "" &&
-//     SubmitEvent.target.comment.value != ""
-//   ) {
-    SubmitEvent.preventDefault();
+  SubmitEvent.preventDefault();
+
+  if (
+    SubmitEvent.target.name.value.length > 0 &&
+    SubmitEvent.target.comment.value.length > 0
+  ) {
+    //Create new comment object and fill with data
     const newComment = {};
     let postDate = new Date();
     let day = String(postDate.getDate()).padStart(2, "0");
     let month = String(postDate.getMonth() + 1).padStart(2, "0");
     let year = postDate.getFullYear();
-
     postDate = day + "/" + month + "/" + year;
     newComment.name = SubmitEvent.target.name.value;
-    newComment.comment = SubmitEvent.target.comment.value;
     newComment.date = postDate;
-
-    createComment(newComment.name, newComment.comment, newComment.date, true);
+    newComment.comment = SubmitEvent.target.comment.value;
+    // Add New comment to Array and re-run build comment section function
+    commentsArr.unshift(newComment);
+    buildCommentSection(commentsArr);
     commentform.reset();
-//   } else {
-//     SubmitEvent.preventDefault();
-//     if (SubmitEvent.target.name.value != "") {
-//       SubmitEvent.target.name.style.border = "1px solid red";
-//     } else if(SubmitEvent.target.comment.value != "") {
-//       SubmitEvent.target.comment.style.border = "1px solid red";
-//     }
-//   }
+  } else {
+  }
 });
 
-function createComment(name, comment, date, newComment) {
+function createComment(name, comment, date) {
   const parentContainer = document.querySelector(".comment-feed");
+
   // Creat new comment container
   const commentContainer = document.createElement("div");
   commentContainer.classList.add("comment");
   parentContainer.appendChild(commentContainer);
 
-  // Create Profile picture image container
+  // Create profile picture image container
   const imgContainer = document.createElement("div");
   imgContainer.classList.add("comment__img-container");
   commentContainer.appendChild(imgContainer);
 
-  // // create profile image in image container
+  // create profile image in image container
   const commentImage = document.createElement("img");
   commentImage.classList.add("comment__img");
   imgContainer.appendChild(commentImage);
 
-  // // Create container for Comment content (comment text, header)
+  // Create container for Comment content (comment text, header)
   const contentContainer = document.createElement("div");
   contentContainer.classList.add("comment__content");
   commentContainer.appendChild(contentContainer);
@@ -87,34 +86,26 @@ function createComment(name, comment, date, newComment) {
   headerContainer.classList.add("comment__content-header-container");
   contentContainer.appendChild(headerContainer);
 
-  // // Create containter for comment content (comment text)
+  // Create containter for comment content (comment text)
   const commentTextContainer = document.createElement("div");
   commentTextContainer.classList.add("comment__content-text-container");
   contentContainer.appendChild(commentTextContainer);
 
-  // // Create containter for header content (name, date)
+  // Create containter for header content (name, date)
   const commentName = document.createElement("h4");
   commentName.classList.add("comment__content-name");
   commentName.innerText = name;
   headerContainer.appendChild(commentName);
 
-  // // Create containter for header content (name, date)
+  // Create containter for header content (name, date)
   const commentDate = document.createElement("h4");
   commentDate.classList.add("comment__content-name");
   commentDate.innerText = date;
   headerContainer.appendChild(commentDate);
 
-  // // Create containter for header content (name, date)
+  //Create containter for header content (name, date)
   const commentText = document.createElement("p");
   commentText.classList.add("comment__content-text");
   commentText.innerText = comment;
   commentTextContainer.appendChild(commentText);
-
-  if (newComment === true) {
-    parentContainer.insertBefore(
-      commentContainer,
-      parentContainer.childNodes[0]
-    );
-  } else {
-  }
 }

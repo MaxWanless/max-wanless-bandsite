@@ -234,4 +234,111 @@ body {
 .footer__copyright-text {
   font-size: 0.8rem;
   font-weight: normal;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-image: url("../assets/Images/hero-shows.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.hero__container {
+  width: inherit;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #FFFFFF;
+  padding: 1rem;
+  background-color: rgba(50, 50, 50, 0.5);
+}
+@media (min-width: 768px) {
+  .hero__container {
+    padding: 2rem;
+  }
+}
+@media (min-width: 1280px) {
+  .hero__container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10rem 5rem;
+  }
+}
+.hero__title {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 1.25rem;
+  min-width: 5rem;
+  width: 18.125rem;
+}
+@media (min-width: 768px) {
+  .hero__title {
+    width: 70%;
+    font-size: 3.75rem;
+    font-weight: bold;
+  }
+}
+.hero__sub-title {
+  font-size: 1.25rem;
+  font-weight: normal;
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+  .hero__sub-title {
+    font-size: 2.25rem;
+  }
+}
+.hero__player {
+  height: 9rem;
+}
+@media (min-width: 768px) {
+  .hero__player-container {
+    width: 55%;
+  }
+}
+
+.shows {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .shows {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80vw;
+  }
+}
+.shows__title-container {
+  display: inline-block;
+}
+.shows__header-container {
+  display: none;
+}
+@media (min-width: 768px) {
+  .shows__header-container {
+    display: flex;
+    justify-content: space-between;
+    width: 65vw;
+  }
+}
+.shows__list-container {
+  display: inline-block;
+}
+
+@media (min-width: 768px) {
+  .show__container {
+    display: flex;
+    justify-content: space-between;
+    width: 65vw;
+  }
+}
+@media (min-width: 768px) {
+  .show__container-sub-title {
+    display: none;
+  }
 }/*# sourceMappingURL=shows.css.map */

@@ -153,6 +153,10 @@
   @include tablet {
     padding: 0 5rem 0 5rem;
   }
+  @include desktop {
+    margin-left: auto;
+    margin-right: auto;
+  }
   &__form-container {
     display: flex;
     justify-content: space-evenly;
@@ -162,7 +166,7 @@
     height: 2.25rem;
     border-radius: 50%;
     margin-top: 1.4rem;
-    &-img-container{
+    &-img-container {
       width: 2.25rem;
     }
     @include tablet {
@@ -199,7 +203,7 @@
       height: 3rem;
       padding: 1rem;
     }
-    &--comment{
+    &--comment {
       height: 5rem;
     }
   }
@@ -208,6 +212,11 @@
     flex-direction: column;
     width: 80%;
     margin-bottom: 1rem;
+    &-container {
+      @include desktop {
+        width: 35rem;
+      }
+    }
   }
   &__button {
     background-color: $primary-color-black;
@@ -216,7 +225,7 @@
     width: 100%;
     border-style: none;
     border-radius: 0.25rem;
-    transition: 0.25s;
+    transition: ease 0.25s;
     &:hover {
       background-color: $secondary-color-dark-black;
     }
@@ -230,29 +239,34 @@
   }
 }
 
-.comment{
+.comment {
   display: flex;
   justify-content: space-evenly;
   padding: 1rem 0 1rem 0;
   border-top: 1px solid $secondary-color-mecury;
   border-bottom: 1px solid $secondary-color-mecury;
-  &__img{
+  &__img {
     height: 2.25rem;
     width: 2.25rem;
     background-color: $secondary-color-mecury;
     border-radius: 50%;
     border-style: none;
-    &-container{
+    &-container {
       width: 2.25rem;
     }
   }
-  &__content{
+  &__content {
     display: flex;
     flex-direction: column;
     width: 80%;
-    &-header-container{
+    &-header-container {
       display: flex;
       justify-content: space-between;
+    }
+  }
+  &-feed{
+    @include desktop {
+      width: 35rem;
     }
   }
 }
