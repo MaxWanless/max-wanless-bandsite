@@ -29,9 +29,10 @@
     </header>
 
     <!-- Hero -->
-    <section class="hero">
-      <h2 class="hero__title">The Bees Knees</h2>
-      <div class="hero__overlay"></div>
+    <section class="hero hero--bio">
+      <div class="hero__container">
+        <h2 class="hero__title">The Bees Knees</h2>
+      </div>
     </section>
 
     <!-- About us -->
@@ -145,34 +146,31 @@
     </section>
 
     <!-- Comment Section -->
- <h2 class="comment-section__title">Join The Conversation</h2>
+    <h2 class="comment-section__title">Join The Conversation</h2>
     <section class="comment-section">
-      <div class="comment-section__form-container">
-        <div class="comment-section__img-container">
-          <img
-            class="comment-section__img"
-            src="./assets/Images/Mohan-muruge.jpg"
-            alt="profile picture"
-          />
+      <div class="form-container">
+        <div class="form__img-container">
+          <div class="form__img"></div>
         </div>
-        <form class="comment-section__form">
-          <h4 class="comment-section__sub-title">Name</h4>
-          <textarea
-            class="comment-section__text-input comment-section__text-input--name"
+
+        <form class="form">
+          <label for="#name-field" class="form__sub-title">Name</label>
+          <input
+            id="name-field"
+            type="text"
+            class="form__text-input"
             name="name"
-            rows="10"
-            cols="50"
             placeholder="Enter your name"
-          ></textarea>
-          <h4 class="comment-section__sub-title">Comment</h4>
+          />
+          <label for="#comment-field" class="form__sub-title">Comment</label>
           <textarea
-            class="comment-section__text-input comment-section__text-input--comment"
+            id="comment-field"
+            type=""
+            class="form__text-input form__text-input--comment"
             name="comment"
-            rows="10"
-            cols="50"
             placeholder="Add a new comment"
           ></textarea>
-          <button class="comment-section__button">COMMENT</button>
+          <button class="form__button">COMMENT</button>
         </form>
       </div>
       <div class="comment-feed"></div>

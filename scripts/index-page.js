@@ -32,7 +32,7 @@ function buildCommentSection(Arr) {
 buildCommentSection(commentsArr);
 
 // Add New comment event handler
-const commentform = document.querySelector(".comment-section__form");
+const commentform = document.querySelector(".form");
 commentform.addEventListener("submit", (SubmitEvent) => {
   SubmitEvent.preventDefault();
 
@@ -61,51 +61,81 @@ commentform.addEventListener("submit", (SubmitEvent) => {
 function createComment(name, comment, date) {
   const parentContainer = document.querySelector(".comment-feed");
 
-  // Creat new comment container
-  const commentContainer = document.createElement("div");
-  commentContainer.classList.add("comment");
-  parentContainer.appendChild(commentContainer);
+  // Creat main comment container
+  const commentContainer = createElement(
+    parentContainer,
+    "comment",
+    "div"
+  );
 
   // Create profile picture image container
-  const imgContainer = document.createElement("div");
-  imgContainer.classList.add("comment__img-container");
-  commentContainer.appendChild(imgContainer);
+  const imgContainer = createElement(
+    commentContainer,
+    "comment__img-container",
+    "div"
+  );
 
   // create profile image in image container
-  const commentImage = document.createElement("img");
-  commentImage.classList.add("comment__img");
-  imgContainer.appendChild(commentImage);
+  const commentImage = createElement(
+    imgContainer,
+    "comment__img",
+    "div"
+  );
+
 
   // Create container for Comment content (comment text, header)
-  const contentContainer = document.createElement("div");
-  contentContainer.classList.add("comment__content");
-  commentContainer.appendChild(contentContainer);
+  const contentContainer = createElement(
+    commentContainer,
+    "comment__content",
+    "div"
+  );
 
   // Create containter for header content (name, date)
-  const headerContainer = document.createElement("div");
-  headerContainer.classList.add("comment__content-header-container");
-  contentContainer.appendChild(headerContainer);
+  const headerContainer = createElement(
+    contentContainer,
+    "comment__header-container",
+    "div"
+  );
 
   // Create containter for comment content (comment text)
-  const commentTextContainer = document.createElement("div");
-  commentTextContainer.classList.add("comment__content-text-container");
-  contentContainer.appendChild(commentTextContainer);
+  const commentTextContainer = createElement(
+    contentContainer,
+    "comment__text-container",
+    "div"
+  );
 
   // Create containter for header content (name, date)
-  const commentName = document.createElement("h4");
-  commentName.classList.add("comment__content-name");
-  commentName.innerText = name;
-  headerContainer.appendChild(commentName);
+  const commentName = createElement(
+    headerContainer,
+    "comment__header-text--bold",
+    "h4",
+    name
+  );
 
   // Create containter for header content (name, date)
-  const commentDate = document.createElement("h4");
-  commentDate.classList.add("comment__content-name");
-  commentDate.innerText = date;
-  headerContainer.appendChild(commentDate);
+  const commentDate = createElement(
+    headerContainer,
+    "comment__header-text",
+    "p",
+    date
+  );
 
   //Create containter for header content (name, date)
-  const commentText = document.createElement("p");
-  commentText.classList.add("comment__content-text");
-  commentText.innerText = comment;
-  commentTextContainer.appendChild(commentText);
+  const commentText = createElement(
+    commentTextContainer,
+    "comment__content-text",
+    "p",
+    comment
+  );
+}
+
+function createElement(parent, className, elementType, data) {
+  const child = document.createElement(elementType);
+  child.classList.add(className);
+  if (data != null) {
+    child.innerText = data;
+  } else {
+  }
+  parent.appendChild(child);
+  return child;
 }

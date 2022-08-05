@@ -30,45 +30,26 @@ let showsArr = [
     location: "San Francisco, CA",
   },
 ];
-//Buy Tickets
 
 function buildShowSection(Arr) {
   const parentContainer = document.querySelector(".shows");
 
-  // create container for show section title
-  const showTitleContainer = document.createElement("div");
-  showTitleContainer.classList.add("shows__title-container");
-  parentContainer.appendChild(showTitleContainer);
+  const showsTable = createElement(parentContainer,"showsTable","shows__table","div");
 
-  // create show section title
-  const showTitle = document.createElement("h2");
-  showTitle.classList.add("shows__title");
-  showTitle.innerText = "SHOWS";
-  showTitleContainer.appendChild(showTitle);
-
-  // create shows list section container
-  const showsListContainer = document.createElement("div");
-  showsListContainer.classList.add("shows__list-container");
-  parentContainer.appendChild(showsListContainer);
-
-  // create Sub header container
-  const showsHeaderContainer = document.createElement("div");
-  showsHeaderContainer.classList.add("shows__header-container");
-  showsListContainer.appendChild(showsHeaderContainer);
+  const showsHeaderRow = createElement(showsTable,"showsHeaderRow","shows__table-tr--header","div");
 
   // Create header subtitles
-  let subTitleArr = ["DATE", "venue", "LOCATION"];
+  let subTitleArr = ["DATE", "VENUE", "LOCATION", ""];
   for (let i = 0; i < subTitleArr.length; i++) {
-    const showHeaderSubTitle = document.createElement("h4");
-    showHeaderSubTitle.classList.add("shows__sub-title");
-    showHeaderSubTitle.innerText = subTitleArr[i];
-    showsHeaderContainer.appendChild(showHeaderSubTitle);
-  }
 
-  const showHeaderButton = document.createElement("button");
-  showHeaderButton.classList.add("shows__sub-title");
-  showHeaderButton.innerText = "BUY TICKETS";
-  showsHeaderContainer.appendChild(showHeaderButton);
+    const showsHeaderTd = createElement(
+      showsHeaderRow,
+      "showsHeaderTd",
+      "shows__table-td--header",
+      "div",
+      subTitleArr[i]
+    );
+  }
 
   for (let i = 0; i < Arr.length; i++) {
     createShow(Arr[i].date, Arr[i].venue, Arr[i].location);
@@ -76,52 +57,81 @@ function buildShowSection(Arr) {
 }
 
 buildShowSection(showsArr);
+
 function createShow(date, venue, locatiton) {
-  const parentContainer = document.querySelector(".shows__list-container");
+  const parentContainer = document.querySelector(".shows__table");
 
-  // Create container for show element
-  const showContainer = document.createElement("div");
-  showContainer.classList.add("show__container");
-  parentContainer.appendChild(showContainer);
+  const showTableRow = createElement(
+    parentContainer,
+    "showTableRow",
+    "shows__table-tr",
+    "div"
+  );
 
-  // Create subt title for Mobile
-  const showDateSubTitle = document.createElement("h4");
-  showDateSubTitle.classList.add("show__container-sub-title");
-  showDateSubTitle.innerText = "DATE";
-  showContainer.appendChild(showDateSubTitle);
+  const showTableRowDateHeader = createElement(
+    showTableRow,
+    "showTableRow",
+    "shows__table-td--mobile",
+    "div",
+    "DATE"
+  );
 
-  // Create date for Mobile
-  const showDate = document.createElement("h5");
-  showDate.classList.add("shows__date");
-  showDate.innerText = date;
-  showContainer.appendChild(showDate);
+  const showTableRowDateData = createElement(
+    showTableRow,
+    "showTableRow",
+    "shows__table-td",
+    "div",
+    date
+  );
 
-  // Create subt title for Mobile
-  const showVenueSubTitle = document.createElement("h4");
-  showVenueSubTitle.classList.add("show__container-sub-title");
-  showVenueSubTitle.innerText = "VENUE";
-  showContainer.appendChild(showVenueSubTitle);
+  const showTableRowVenueHeader = createElement(
+    showTableRow,
+    "showTableRow",
+    "shows__table-td--mobile",
+    "div",
+    "VENUE"
+  );
 
-  // Create Venu for Mobile
-  const showVenue = document.createElement("h5");
-  showVenue.classList.add("shows__date");
-  showVenue.innerText = venue;
-  showContainer.appendChild(showVenue);
+  const showTableRowVenueData = createElement(
+    showTableRow,
+    "showTableRow",
+    "shows__table-td",
+    "div",
+    venue
+  );
 
-  // Create subt title for Mobile
-  const showLocationSubTitle = document.createElement("h4");
-  showLocationSubTitle.classList.add("show__container-sub-title");
-  showLocationSubTitle.innerText = "LOCATION";
-  showContainer.appendChild(showLocationSubTitle);
+  const showTableRowLocationHeader = createElement(
+    showTableRow,
+    "showTableRow",
+    "shows__table-td--mobile",
+    "div",
+    "LOCATION"
+  );
 
-  // Create Venu for Mobile
-  const showLocation = document.createElement("h5");
-  showLocation.classList.add("shows__date");
-  showLocation.innerText = locatiton;
-  showContainer.appendChild(showLocation);
+  const showLocation = createElement(
+    showTableRow,
+    "showLocation",
+    "shows__table-td",
+    "div",
+    locatiton
+  );
 
-  const showHeaderButton = document.createElement("button");
-  showHeaderButton.classList.add("shows__sub-title");
-  showHeaderButton.innerText = "BUY TICKETS";
-  showContainer.appendChild(showHeaderButton);
+  const shoeHeaderButton = createElement(
+    showTableRow,
+    "showHeaderButton",
+    "shows__button",
+    "button",
+    "BUY TICKETS"
+  );
+}
+
+function createElement(parent, childName, className, elementType, Data) {
+  const child = document.createElement(elementType);
+  child.classList.add(className);
+  if (Data != null) {
+    child.innerText = Data;
+  } else {
+  }
+  parent.appendChild(child);
+  return child;
 }

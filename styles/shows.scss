@@ -3,98 +3,113 @@
 @use "./partials/colors" as *;
 @use "./partials/global" as *;
 
-.hero {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  background-image: url("../assets/Images/hero-shows.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  &__container {
-    width: inherit;
-    height: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: $primary-color-white;
-    padding: 1rem;
-    background-color: rgba($primary-color-black, 0.5);
-    @include tablet{
-      padding: 2rem;
-    }
-    @include desktop{
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10rem 5rem ;
-    }
-  }
-  &__title {
-    font-size: 2rem;
-    font-weight: 400;
-    margin-bottom: 1.25rem;
-    min-width: 5rem;
-    width: 18.125rem;
-    @include tablet {
-      width: 70%;
-      font-size: 3.75rem;
-      font-weight: bold;
-    }
-  }
-  &__sub-title {
-    font-size: 1.25rem;
-    font-weight: normal;
-    margin-bottom: 1.5rem;
-    @include tablet{
-      font-size: 2.25rem;
-    }
-  }
-  &__player{
-    height: 9rem;
-    &-container{
-      @include tablet{
-        width: 55%;
-      }
-    }
-  }
-}
 
-.shows{
+.shows {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
-  @include tablet{
+  padding: 1rem;
+  @include desktop {
+    margin: auto;
+    max-width: 65rem;
+  }
+  @include desktop {
     flex-direction: row;
     justify-content: space-between;
     width: 80vw;
   }
-  &__title{
-    &-container{
-      display: inline-block;
-    }
-  }
-  &__header-container{
-    display: none;
-    @include tablet{
+  &__title {
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1rem 0;
+    &-container {
+      width: 100%;
       display: flex;
-      justify-content: space-between;
-      width: 65vw;
+      flex-direction: row;
+      justify-content: flex-start;
+      @include desktop {
+        align-items: flex-start;
+        justify-content: flex-start;
+        max-width: 5rem;
+        height: 100%;
+      }
     }
   }
-  &__list-container{
-    display: inline-block;
+  &__table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    @include tablet {
+      width: 80%;
+    }
+    &-tr {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid $secondary-color-mecury;
+      padding: 1.5rem 0;
+      @include tablet {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      &--header {
+        display: none;
+        @include tablet {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+    &-td {
+      width: 100%;
+      margin-bottom: 1.25rem;
+      @include tablet {
+        width: 25%;
+      }
+      &--header {
+        width: 100%;
+
+        @include tablet {
+          width: 25%;
+        }
+      }
+      &--mobile {
+        margin-bottom: 0.75rem;
+        color: $primary-color-silver;
+        font-weight: bold;
+        @include tablet {
+          display: none;
+        }
+      }
+    }
+  }
+  &__button {
+    background-color: $primary-color-black;
+    font-size: 1.25rem;
+    color: $primary-color-white;
+    height: 3rem;
+    width: 100%;
+    border-style: none;
+    border-radius: 0.25rem;
+    transition: ease 0.25s;
+    @include tablet {
+      width: 25%;
+    }
+    &:hover {
+      background-color: $secondary-color-dark-black;
+    }
   }
 }
 
-.show__container{
-  @include tablet{
+.show__container {
+  @include tablet {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 65vw;
   }
-  &-sub-title{
-    @include tablet{
+  &-sub-title {
+    @include tablet {
       display: none;
     }
   }
