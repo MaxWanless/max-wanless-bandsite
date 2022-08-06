@@ -3,7 +3,6 @@
 @use "./partials/colors" as *;
 @use "./partials/global" as *;
 
-
 .bio {
   &__title {
     font-size: 1.5rem;
@@ -13,7 +12,7 @@
       margin: 3rem 0 2.25rem 2.25rem;
     }
     @include desktop {
-      margin: 3rem 0 2.25rem 8rem;
+      margin: 3rem 0 2.25rem 0;
     }
   }
   &__content {
@@ -75,7 +74,11 @@
 }
 
 .photo-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: $secondary-color-alabaster;
+  width: 100%;
   padding: 0 1rem 1rem 1rem;
   @include tablet {
     padding: 0 2.25rem 2.25rem 2.25rem;
@@ -102,12 +105,15 @@
       justify-content: space-between;
       align-content: space-evenly;
     }
+    @include desktop {
+      max-width: 70rem;
+    }
   }
   &__item {
-    margin: 1.5vw 0;
+    margin: 3rem 0;
     @include tablet {
       width: 31%;
-      margin: 1.25vw 0;
+      margin: 1rem 0;
     }
   }
   &__img {
@@ -149,6 +155,7 @@
 }
 
 .form {
+  font-family: "Avenir", Times, serif;
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -179,6 +186,8 @@
     }
   }
   &__text-input {
+    outline: none;
+    font-family: "Avenir", Times, serif;
     height: 2.25rem;
     width: 100%;
     border-radius: 0.25rem;
@@ -195,6 +204,12 @@
     }
     &--comment {
       height: 5rem;
+    }
+    &--error {
+      border: 1px solid #d22d2d;
+    }
+    &:focus {
+      border: 1px solid $primary-color-black;
     }
   }
   &__button {
@@ -225,7 +240,7 @@
   justify-content: space-evenly;
   padding: 1rem 0 1rem 0;
   border-collapse: collapse;
-  border-top: 1px solid $secondary-color-mecury;
+
   border-bottom: 1px solid $secondary-color-mecury;
   &__img {
     height: 2.25rem;
@@ -255,6 +270,11 @@
     justify-content: space-between;
   }
   &-feed {
+    border-top: 1px solid $secondary-color-mecury;
+    margin-bottom: 1rem;
+    @include tablet {
+      margin-bottom: 2rem;
+    }
     @include desktop {
       width: 35rem;
     }

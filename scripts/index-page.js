@@ -19,23 +19,23 @@ let commentsArr = [
   },
 ];
 
-// Build Comment section from array
+// Loop though comments Array to build comnent feed
 function buildCommentSection(Arr) {
   const parentContainer = document.querySelector(".comment-feed");
   // fix with proper logic
   parentContainer.innerHTML = null;
   for (let i = 0; i < Arr.length; i++) {
-    createComment(Arr[i].name, Arr[i].comment, Arr[i].date);
+    createComment(Arr[i]);
   }
 }
 // Generate comment section for original array
 buildCommentSection(commentsArr);
 
-// Add New comment event handler
+// Event listener for comment submit button
 const commentform = document.querySelector(".form");
 commentform.addEventListener("submit", (SubmitEvent) => {
   SubmitEvent.preventDefault();
-
+  // make sure both comment and name fields are filled out before submision
   if (
     SubmitEvent.target.name.value.length > 0 &&
     SubmitEvent.target.comment.value.length > 0
@@ -53,82 +53,79 @@ commentform.addEventListener("submit", (SubmitEvent) => {
     // Add New comment to Array and re-run build comment section function
     commentsArr.unshift(newComment);
     buildCommentSection(commentsArr);
+    SubmitEvent.target.name.classList.remove("form__text-input--error");
+    SubmitEvent.target.comment.classList.remove("form__text-input--error");
     commentform.reset();
   } else {
+    if (
+      SubmitEvent.target.name.value.length <= 0 &&
+      SubmitEvent.target.comment.value.length <= 0
+    ) {
+      SubmitEvent.target.name.classList.add("form__text-input--error");
+      SubmitEvent.target.comment.classList.add("form__text-input--error");
+    } else if (SubmitEvent.target.comment.value.length <= 0) {
+      SubmitEvent.target.comment.classList.add("form__text-input--error");
+    } else {
+      SubmitEvent.target.name.classList.add("form__text-input--error");
+    }
   }
 });
 
-function createComment(name, comment, date) {
+function createComment(obj) {
+  // Select Comment feed section to create comment section in
   const parentContainer = document.querySelector(".comment-feed");
-
   // Creat main comment container
-  const commentContainer = createElement(
-    parentContainer,
-    "comment",
-    "div"
-  );
-
+  const commentContainer = createElement(parentContainer, "comment", "div");
   // Create profile picture image container
   const imgContainer = createElement(
     commentContainer,
     "comment__img-container",
     "div"
   );
-
   // create profile image in image container
-  const commentImage = createElement(
-    imgContainer,
-    "comment__img",
-    "div"
-  );
-
-
+  const commentImage = createElement(imgContainer, "comment__img", "div");
   // Create container for Comment content (comment text, header)
   const contentContainer = createElement(
     commentContainer,
     "comment__content",
     "div"
   );
-
   // Create containter for header content (name, date)
   const headerContainer = createElement(
     contentContainer,
     "comment__header-container",
     "div"
   );
-
   // Create containter for comment content (comment text)
   const commentTextContainer = createElement(
     contentContainer,
     "comment__text-container",
     "div"
   );
-
-  // Create containter for header content (name, date)
+  // Create name element in header container
   const commentName = createElement(
     headerContainer,
     "comment__header-text--bold",
     "h4",
-    name
+    obj.name
   );
-
-  // Create containter for header content (name, date)
+  // Create date element in header container
   const commentDate = createElement(
     headerContainer,
     "comment__header-text",
     "p",
-    date
+    obj.date
   );
-
-  //Create containter for header content (name, date)
+  //Create comment text element in comment text container
   const commentText = createElement(
     commentTextContainer,
     "comment__content-text",
     "p",
-    comment
+    obj.comment
   );
 }
 
+// Function for creating elements
 function createElement(parent, className, elementType, data) {
   const child = document.createElement(elementType);
   child.classList.add(className);

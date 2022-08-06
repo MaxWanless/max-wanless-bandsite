@@ -3,25 +3,29 @@
 @use "./partials/colors" as *;
 @use "./partials/global" as *;
 
-
 .shows {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   padding: 1rem;
+  background-color: $primary-color-white;
   @include desktop {
     margin: auto;
     max-width: 65rem;
   }
   @include desktop {
     flex-direction: row;
-    justify-content: space-between;
     width: 80vw;
+    align-items: flex-start;
   }
   &__title {
     font-size: 1.5rem;
     margin: 1.5rem 0 1rem 0;
+    @include desktop {
+      margin: 0;
+    }
+
     &-container {
       width: 100%;
       display: flex;
@@ -40,7 +44,7 @@
     flex-direction: column;
     width: 100%;
     @include tablet {
-      width: 80%;
+      // width: 80%;
     }
     &-tr {
       display: flex;
@@ -52,12 +56,23 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        padding: 0.7rem 1rem;
+      }
+      &--selected {
+        background-color: $secondary-color-mecury;
+      }
+      &:hover {
+        background-color: $secondary-color-alabaster;
       }
       &--header {
         display: none;
         @include tablet {
           display: flex;
           justify-content: space-between;
+          margin-bottom: 1rem;
+          padding: 0 1rem;
+          color: $primary-color-silver;
+          font-weight: bold;
         }
       }
     }
@@ -66,10 +81,10 @@
       margin-bottom: 1.25rem;
       @include tablet {
         width: 25%;
+        margin-bottom: 0;
       }
       &--header {
         width: 100%;
-
         @include tablet {
           width: 25%;
         }

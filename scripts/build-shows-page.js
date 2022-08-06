@@ -34,14 +34,23 @@ let showsArr = [
 function buildShowSection(Arr) {
   const parentContainer = document.querySelector(".shows");
 
-  const showsTable = createElement(parentContainer,"showsTable","shows__table","div");
+  const showsTable = createElement(
+    parentContainer,
+    "showsTable",
+    "shows__table",
+    "div"
+  );
 
-  const showsHeaderRow = createElement(showsTable,"showsHeaderRow","shows__table-tr--header","div");
+  const showsHeaderRow = createElement(
+    showsTable,
+    "showsHeaderRow",
+    "shows__table-tr--header",
+    "div"
+  );
 
   // Create header subtitles
   let subTitleArr = ["DATE", "VENUE", "LOCATION", ""];
   for (let i = 0; i < subTitleArr.length; i++) {
-
     const showsHeaderTd = createElement(
       showsHeaderRow,
       "showsHeaderTd",
@@ -134,4 +143,20 @@ function createElement(parent, childName, className, elementType, Data) {
   }
   parent.appendChild(child);
   return child;
+}
+
+// Highlight clicked on row
+let showsTableRowArr = document.querySelectorAll(".shows__table-tr");
+console.log(showsTableRowArr);
+for (let i = 0; i < showsTableRowArr.length; i++) {
+  showsTableRowArr[i].addEventListener("click", (event) => {
+    let selectedIndex = i
+    for (let j = 0; j < showsTableRowArr.length; j++) {
+      if(selectedIndex === j){
+        event.currentTarget.classList.add("shows__table-tr--selected");
+      }else{
+        showsTableRowArr[j].classList.remove("shows__table-tr--selected")
+      }
+    } 
+  });
 }

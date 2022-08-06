@@ -29,7 +29,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Avenir";
+  font-family: "Avenir", times, serif;
 }
 
 .header {
@@ -229,6 +229,12 @@ body {
     padding: 0 2.25rem 2.25rem 2.25rem;
   }
 }
+@media (min-width: 1280px) {
+  .footer__container {
+    max-width: 70rem;
+    margin: 0 auto;
+  }
+}
 .footer__block {
   position: relative;
   display: flex;
@@ -294,7 +300,6 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 60vw;
   }
 }
 .footer__contact-card {
@@ -345,7 +350,7 @@ body {
 }
 @media (min-width: 1280px) {
   .bio__title {
-    margin: 3rem 0 2.25rem 8rem;
+    margin: 3rem 0 2.25rem 0;
   }
 }
 .bio__content {
@@ -420,7 +425,11 @@ body {
 }
 
 .photo-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: #FAFAFA;
+  width: 100%;
   padding: 0 1rem 1rem 1rem;
 }
 @media (min-width: 768px) {
@@ -456,13 +465,18 @@ body {
     align-content: space-evenly;
   }
 }
+@media (min-width: 1280px) {
+  .photo-gallery__block {
+    max-width: 70rem;
+  }
+}
 .photo-gallery__item {
-  margin: 1.5vw 0;
+  margin: 3rem 0;
 }
 @media (min-width: 768px) {
   .photo-gallery__item {
     width: 31%;
-    margin: 1.25vw 0;
+    margin: 1rem 0;
   }
 }
 .photo-gallery__img {
@@ -511,6 +525,7 @@ body {
 }
 
 .form {
+  font-family: "Avenir", Times, serif;
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -546,6 +561,8 @@ body {
   }
 }
 .form__text-input {
+  outline: none;
+  font-family: "Avenir", Times, serif;
   height: 2.25rem;
   width: 100%;
   border-radius: 0.25rem;
@@ -565,6 +582,12 @@ body {
 }
 .form__text-input--comment {
   height: 5rem;
+}
+.form__text-input--error {
+  border: 1px solid #d22d2d;
+}
+.form__text-input:focus {
+  border: 1px solid #323232;
 }
 .form__button {
   background-color: #323232;
@@ -594,7 +617,6 @@ body {
   justify-content: space-evenly;
   padding: 1rem 0 1rem 0;
   border-collapse: collapse;
-  border-top: 1px solid #E1E1E1;
   border-bottom: 1px solid #E1E1E1;
 }
 .comment__img {
@@ -627,6 +649,15 @@ body {
 .comment__header-container {
   display: flex;
   justify-content: space-between;
+}
+.comment-feed {
+  border-top: 1px solid #E1E1E1;
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .comment-feed {
+    margin-bottom: 2rem;
+  }
 }
 @media (min-width: 1280px) {
   .comment-feed {
