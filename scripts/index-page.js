@@ -19,6 +19,14 @@ let commentsArr = [
   },
 ];
 
+axios
+  .get(
+    "https://project-1-api.herokuapp.com/comments/?api_key=e0eea5f0-0f8c-4b54-9fc4-ff50843766d4"
+  )
+  .then((response) => {
+    console.log(response.data);
+  });
+
 // Loop though comments Array to build comnent feed
 function buildCommentSection(Arr) {
   const parentContainer = document.querySelector(".comment-feed");
