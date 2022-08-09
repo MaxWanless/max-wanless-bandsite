@@ -1,84 +1,51 @@
-let commentsArr = [
-  {
-    name: "Connor Walton",
-    date: "02/17/2021",
-    comment:
-      "This is art. This is inexplicable magic expressed in the purest way, everything that makes up this majestic work deserves reverence. Let us appreciate this for what it is and what it contains.",
-  },
-  {
-    name: "Emilie Beach",
-    date: "01/09/2021",
-    comment:
-      "I feel blessed to have seen them in person. What a show! They were just perfection. If there was one day of my life I could relive, this would be it. What an incredible day.",
-  },
-  {
-    name: "Miles Acosta",
-    date: "12/20/2020",
-    comment:
-      "I can't stop listening. Every time I hear one of their songs - the vocals - it gives me goosebumps. Shivers straight down my spine. What a beautiful expression of creativity. Can't get enough.",
-  },
-];
+let commentsArr = [];
+const api_key = "db929eb2-0379-4372-9686-78554ac854bf";
 
+//Build Initial comment Section based on array.
 axios
-  .get(
-    "https://project-1-api.herokuapp.com/comments/?api_key=e0eea5f0-0f8c-4b54-9fc4-ff50843766d4"
-  )
+  .get(`https://project-1-api.herokuapp.com/comments/?api_key=${api_key}`)
   .then((response) => {
-    console.log(response.data);
+    commentsArr = response.data;
+    buildCommentSection(commentsArr);
   });
 
-// Loop though comments Array to build comnent feed
+// Loop through each comment in array and call createComment routine for each
 function buildCommentSection(Arr) {
-  const parentContainer = document.querySelector(".comment-feed");
-  // fix with proper logic
-  parentContainer.innerHTML = null;
-  for (let i = 0; i < Arr.length; i++) {
-    createComment(Arr[i]);
-  }
+  Arr = Arr.sort((a, b) => b.timestamp - a.timestamp);
+  Arr.forEach((comment) => {
+    createComment(comment);
+  });
+  deleteButtonlistners();
+  likeButtonListners()
 }
-// Generate comment section for original array
-buildCommentSection(commentsArr);
 
-// Event listener for comment submit button
+// Post new comment to array when Submit button is pressed.
 const commentform = document.querySelector(".form");
 commentform.addEventListener("submit", (SubmitEvent) => {
   SubmitEvent.preventDefault();
-  // make sure both comment and name fields are filled out before submision
-  if (
-    SubmitEvent.target.name.value.length > 0 &&
-    SubmitEvent.target.comment.value.length > 0
-  ) {
-    //Create new comment object and fill with data
-    const newComment = {};
-    let postDate = new Date();
-    let day = String(postDate.getDate()).padStart(2, "0");
-    let month = String(postDate.getMonth() + 1).padStart(2, "0");
-    let year = postDate.getFullYear();
-    postDate = day + "/" + month + "/" + year;
-    newComment.name = SubmitEvent.target.name.value;
-    newComment.date = postDate;
-    newComment.comment = SubmitEvent.target.comment.value;
-    // Add New comment to Array and re-run build comment section function
-    commentsArr.unshift(newComment);
-    buildCommentSection(commentsArr);
-    SubmitEvent.target.name.classList.remove("form__text-input--error");
-    SubmitEvent.target.comment.classList.remove("form__text-input--error");
-    commentform.reset();
-  } else {
-    if (
-      SubmitEvent.target.name.value.length <= 0 &&
-      SubmitEvent.target.comment.value.length <= 0
-    ) {
-      SubmitEvent.target.name.classList.add("form__text-input--error");
-      SubmitEvent.target.comment.classList.add("form__text-input--error");
-    } else if (SubmitEvent.target.comment.value.length <= 0) {
-      SubmitEvent.target.comment.classList.add("form__text-input--error");
-    } else {
-      SubmitEvent.target.name.classList.add("form__text-input--error");
-    }
-  }
+
+  const newComment = {
+    name: SubmitEvent.target.name.value,
+    comment: SubmitEvent.target.comment.value,
+  };
+  axios
+    .post(
+      `https://project-1-api.herokuapp.com/comments/?api_key=${api_key}`,
+      newComment
+    )
+    .then((response) => {
+      commentsArr.unshift(response.data);
+      const parentContainer = document.querySelector(".comment-feed");
+      resetCommentSection();
+      buildCommentSection(commentsArr);
+      SubmitEvent.target.reset();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
+//Create comment function
 function createComment(obj) {
   // Select Comment feed section to create comment section in
   const parentContainer = document.querySelector(".comment-feed");
@@ -117,12 +84,13 @@ function createComment(obj) {
     "h4",
     obj.name
   );
+
   // Create date element in header container
   const commentDate = createElement(
     headerContainer,
     "comment__header-text",
     "p",
-    obj.date
+    formatDate(obj.timestamp)
   );
   //Create comment text element in comment text container
   const commentText = createElement(
@@ -131,16 +99,117 @@ function createComment(obj) {
     "p",
     obj.comment
   );
+
+  // Create interaction container
+  const commentinterationContainer = createElement(
+    contentContainer,
+    "comment__interaction-container",
+    "div"
+  );
+
+      //Create Like count
+  const likeCount = createElement(
+    commentinterationContainer,
+    "comment__interaction-text",
+    "p",
+    `Likes: ${obj.likes}`
+  );
+  //Create Like button
+  const likeButton = createElement(
+    commentinterationContainer,
+    "comment__interaction-button--like",
+    "button",
+    "👍",
+    obj.id
+  );
+
+  //Create delete button
+  const deleteButton = createElement(
+    commentinterationContainer,
+    "comment__interaction-button--delete",
+    "button",
+    "🚫",
+    obj.id
+  );
 }
 
 // Function for creating elements
-function createElement(parent, className, elementType, data) {
+function createElement(parent, className, elementType, data, id) {
   const child = document.createElement(elementType);
   child.classList.add(className);
   if (data != null) {
     child.innerText = data;
   } else {
   }
+  if (id != null) {
+    child.setAttribute("name", id);
+  } else {
+  }
   parent.appendChild(child);
   return child;
+}
+
+//Function for formatting Date from time stamp
+function formatDate(timestamp) {
+  let postDate = new Date(timestamp);
+  let day = String(postDate.getDate()).padStart(2, "0");
+  let month = String(postDate.getMonth() + 1).padStart(2, "0");
+  let year = postDate.getFullYear();
+  postDate = day + "/" + month + "/" + year;
+  return postDate;
+}
+
+// Clear comment section addition of new comment
+function resetCommentSection() {
+  const parentContainer = document.querySelector(".comment-feed");
+  const commentList = document.querySelectorAll(".comment");
+  commentList.forEach((comment, index) => {
+    parentContainer.removeChild(commentList[index]);
+  });
+}
+
+//Delete selected comment
+function deleteButtonlistners() {
+  const deleteButtons = document.querySelectorAll(
+    ".comment__interaction-button--delete"
+  );
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const id = event.currentTarget.name;
+      axios
+        .delete(
+          `https://project-1-api.herokuapp.com/comments/${id}/?api_key=${api_key}`
+        )
+        .then((response) => {
+          commentsArr.splice(
+            commentsArr.indexOf(commentsArr.find((o) => o.id === id)),
+            1
+          );
+          resetCommentSection();
+          buildCommentSection(commentsArr);
+        });
+    });
+  });
+}
+
+//like selected comment
+function likeButtonListners() {
+  const likeButtons = document.querySelectorAll(
+    ".comment__interaction-button--like"
+  );
+  console.log()
+  likeButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const id = event.currentTarget.name;
+      axios
+        .put(
+          `https://project-1-api.herokuapp.com/comments/${id}/like/?api_key=${api_key}`
+        )
+        .then((response) => {
+          commentsArr[commentsArr.indexOf(commentsArr.find((o) => o.id === id))].likes = response.data.likes;
+          resetCommentSection();
+          buildCommentSection(commentsArr);
+        });
+    });
+  });
 }
