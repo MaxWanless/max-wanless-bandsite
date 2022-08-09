@@ -1,35 +1,13 @@
-let showsArr = [
-  {
-    date: "Mon Sept 06 2021",
-    venue: "Ronald Lane",
-    location: "San Francisco, CA",
-  },
-  {
-    date: "Tue Sept 21 2021",
-    venue: "Pier 3 East",
-    location: "San Francisco, CA",
-  },
-  {
-    date: "Fri Oct 15 2021",
-    venue: "View Lounge",
-    location: "San Francisco, CA",
-  },
-  {
-    date: "Sat Nov 06 2021",
-    venue: "Hyatt Agency",
-    location: "San Francisco, CA",
-  },
-  {
-    date: "Fri Nov 26 2021",
-    venue: "Moscow Center",
-    location: "San Francisco, CA",
-  },
-  {
-    date: "Wed Dec 15 2021",
-    venue: "Press Club",
-    location: "San Francisco, CA",
-  },
-];
+let showsArr = [];
+const api_key = "db929eb2-0379-4372-9686-78554ac854bf";
+
+axios
+  .get(`https://project-1-api.herokuapp.com/showdates/?api_key=${api_key}`)
+  .then((response) => {
+    showsArr = response.data;
+    buildShowSection(showsArr);
+    console.log(response.data);
+  });
 
 function buildShowSection(Arr) {
   const parentContainer = document.querySelector(".shows");
@@ -40,7 +18,6 @@ function buildShowSection(Arr) {
     "shows__table",
     "div"
   );
-
   const showsHeaderRow = createElement(
     showsTable,
     "showsHeaderRow",
@@ -59,13 +36,11 @@ function buildShowSection(Arr) {
       subTitleArr[i]
     );
   }
-
   for (let i = 0; i < Arr.length; i++) {
-    createShow(Arr[i].date, Arr[i].venue, Arr[i].location);
+    createShow(Arr[i].date, Arr[i].place, Arr[i].location);
   }
+  createTableEventListners()
 }
-
-buildShowSection(showsArr);
 
 function createShow(date, venue, locatiton) {
   const parentContainer = document.querySelector(".shows__table");
@@ -85,12 +60,13 @@ function createShow(date, venue, locatiton) {
     "DATE"
   );
 
+
   const showTableRowDateData = createElement(
     showTableRow,
     "showTableRow",
     "shows__table-td",
     "div",
-    date
+    formatDate(date)
   );
 
   const showTableRowVenueHeader = createElement(
@@ -145,18 +121,29 @@ function createElement(parent, childName, className, elementType, Data) {
   return child;
 }
 
+ function createTableEventListners(){
 // Highlight clicked on row
 let showsTableRowArr = document.querySelectorAll(".shows__table-tr");
 console.log(showsTableRowArr);
 for (let i = 0; i < showsTableRowArr.length; i++) {
   showsTableRowArr[i].addEventListener("click", (event) => {
-    let selectedIndex = i
+    let selectedIndex = i;
     for (let j = 0; j < showsTableRowArr.length; j++) {
-      if(selectedIndex === j){
+      if (selectedIndex === j) {
         event.currentTarget.classList.add("shows__table-tr--selected");
-      }else{
-        showsTableRowArr[j].classList.remove("shows__table-tr--selected")
+      } else {
+        showsTableRowArr[j].classList.remove("shows__table-tr--selected");
       }
-    } 
+    }
   });
+}}
+
+//Function for formatting Date from time stamp
+function formatDate(timestamp) {
+  let postDate = new Date(timestamp);
+  let day = String(postDate.getDate()).padStart(2, "0");
+  let month = String(postDate.getMonth() + 1).padStart(2, "0");
+  let year = postDate.getFullYear();
+  postDate = day + "/" + month + "/" + year;
+  return postDate;
 }
