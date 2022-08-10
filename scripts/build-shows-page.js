@@ -6,12 +6,11 @@ axios
   .then((response) => {
     showsArr = response.data;
     buildShowSection(showsArr);
-    console.log(response.data);
   });
 
+// Create show section
 function buildShowSection(Arr) {
   const parentContainer = document.querySelector(".shows");
-
   const showsTable = createElement(
     parentContainer,
     "showsTable",
@@ -24,25 +23,27 @@ function buildShowSection(Arr) {
     "shows__table-tr--header",
     "div"
   );
-
-  // Create header subtitles
+  // Create column titles
   let subTitleArr = ["DATE", "VENUE", "LOCATION", ""];
-  for (let i = 0; i < subTitleArr.length; i++) {
+  subTitleArr.forEach((element) => {
     const showsHeaderTd = createElement(
       showsHeaderRow,
       "showsHeaderTd",
       "shows__table-td--header",
       "div",
-      subTitleArr[i]
+      element
     );
-  }
-  for (let i = 0; i < Arr.length; i++) {
-    createShow(Arr[i].date, Arr[i].place, Arr[i].location);
-  }
-  createTableEventListners()
+  });
+
+  // Create show elements
+  Arr.forEach((element) => {
+    createShow(element);
+  });
+  createTableEventListners();
 }
 
-function createShow(date, venue, locatiton) {
+// Create each show
+function createShow(obj) {
   const parentContainer = document.querySelector(".shows__table");
 
   const showTableRow = createElement(
@@ -60,13 +61,12 @@ function createShow(date, venue, locatiton) {
     "DATE"
   );
 
-
   const showTableRowDateData = createElement(
     showTableRow,
     "showTableRow",
     "shows__table-td",
     "div",
-    formatDate(date)
+    formatDate(obj.date)
   );
 
   const showTableRowVenueHeader = createElement(
@@ -82,7 +82,7 @@ function createShow(date, venue, locatiton) {
     "showTableRow",
     "shows__table-td",
     "div",
-    venue
+    obj.place
   );
 
   const showTableRowLocationHeader = createElement(
@@ -98,7 +98,7 @@ function createShow(date, venue, locatiton) {
     "showLocation",
     "shows__table-td",
     "div",
-    locatiton
+    obj.location
   );
 
   const shoeHeaderButton = createElement(
@@ -110,6 +110,7 @@ function createShow(date, venue, locatiton) {
   );
 }
 
+//DOM Create element
 function createElement(parent, childName, className, elementType, Data) {
   const child = document.createElement(elementType);
   child.classList.add(className);
@@ -121,29 +122,25 @@ function createElement(parent, childName, className, elementType, Data) {
   return child;
 }
 
- function createTableEventListners(){
-// Highlight clicked on row
-let showsTableRowArr = document.querySelectorAll(".shows__table-tr");
-console.log(showsTableRowArr);
-for (let i = 0; i < showsTableRowArr.length; i++) {
-  showsTableRowArr[i].addEventListener("click", (event) => {
-    let selectedIndex = i;
-    for (let j = 0; j < showsTableRowArr.length; j++) {
-      if (selectedIndex === j) {
-        event.currentTarget.classList.add("shows__table-tr--selected");
-      } else {
-        showsTableRowArr[j].classList.remove("shows__table-tr--selected");
+//Create event listeners for show highlighting
+function createTableEventListners() {
+  let showsTableRowArr = document.querySelectorAll(".shows__table-tr");
+  for (let i = 0; i < showsTableRowArr.length; i++) {
+    showsTableRowArr[i].addEventListener("click", (event) => {
+      let selectedIndex = i;
+      for (let j = 0; j < showsTableRowArr.length; j++) {
+        if (selectedIndex === j) {
+          event.currentTarget.classList.add("shows__table-tr--selected");
+        } else {
+          showsTableRowArr[j].classList.remove("shows__table-tr--selected");
+        }
       }
-    }
-  });
-}}
+    });
+  }
+}
 
 //Function for formatting Date from time stamp
 function formatDate(timestamp) {
-  let postDate = new Date(timestamp);
-  let day = String(postDate.getDate()).padStart(2, "0");
-  let month = String(postDate.getMonth() + 1).padStart(2, "0");
-  let year = postDate.getFullYear();
-  postDate = day + "/" + month + "/" + year;
-  return postDate;
+  formatedDate = new Date(timestamp).toDateString();
+  return formatedDate;
 }

@@ -2,12 +2,15 @@ let commentsArr = [];
 const api_key = "db929eb2-0379-4372-9686-78554ac854bf";
 
 //Build Initial comment Section based on array.
-axios
-  .get(`https://project-1-api.herokuapp.com/comments/?api_key=${api_key}`)
-  .then((response) => {
-    commentsArr = response.data;
-    buildCommentSection(commentsArr);
-  });
+function reloadComments() {
+  axios
+    .get(`https://project-1-api.herokuapp.com/comments/?api_key=${api_key}`)
+    .then((response) => {
+      commentsArr = response.data;
+      buildCommentSection(response.data);
+    });
+}
+reloadComments();
 
 // Loop through each comment in array and call createComment routine for each
 function buildCommentSection(Arr) {
@@ -16,7 +19,7 @@ function buildCommentSection(Arr) {
     createComment(comment);
   });
   deleteButtonlistners();
-  likeButtonListners()
+  likeButtonListners();
 }
 
 // Post new comment to array when Submit button is pressed.
@@ -24,25 +27,45 @@ const commentform = document.querySelector(".form");
 commentform.addEventListener("submit", (SubmitEvent) => {
   SubmitEvent.preventDefault();
 
-  const newComment = {
-    name: SubmitEvent.target.name.value,
-    comment: SubmitEvent.target.comment.value,
-  };
-  axios
-    .post(
-      `https://project-1-api.herokuapp.com/comments/?api_key=${api_key}`,
-      newComment
-    )
-    .then((response) => {
-      commentsArr.unshift(response.data);
-      const parentContainer = document.querySelector(".comment-feed");
-      resetCommentSection();
-      buildCommentSection(commentsArr);
-      SubmitEvent.target.reset();
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  if (
+    SubmitEvent.target.name.value.length > 0 &&
+    SubmitEvent.target.comment.value.length > 0
+  ) {
+    const newComment = {
+      name: SubmitEvent.target.name.value,
+      comment: SubmitEvent.target.comment.value,
+    };
+    axios
+      .post(
+        `https://project-1-api.herokuapp.com/comments/?api_key=${api_key}`,
+        newComment
+      )
+      .then((response) => {
+        commentsArr.unshift(response.data);
+        const parentContainer = document.querySelector(".comment-feed");
+        resetCommentSection();
+        buildCommentSection(commentsArr);
+        // reloadComments()
+        SubmitEvent.target.reset();
+        SubmitEvent.target.name.classList.remove("form__text-input--error");
+        SubmitEvent.target.comment.classList.remove("form__text-input--error");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } else {
+    if (
+      SubmitEvent.target.name.value.length <= 0 &&
+      SubmitEvent.target.comment.value.length <= 0
+    ) {
+      SubmitEvent.target.name.classList.add("form__text-input--error");
+      SubmitEvent.target.comment.classList.add("form__text-input--error");
+    } else if (SubmitEvent.target.comment.value.length <= 0) {
+      SubmitEvent.target.comment.classList.add("form__text-input--error");
+    } else {
+      SubmitEvent.target.name.classList.add("form__text-input--error");
+    }
+  }
 });
 
 //Create comment function
@@ -107,7 +130,7 @@ function createComment(obj) {
     "div"
   );
 
-      //Create Like count
+  //Create Like count
   const likeCount = createElement(
     commentinterationContainer,
     "comment__interaction-text",
@@ -186,6 +209,7 @@ function deleteButtonlistners() {
             1
           );
           resetCommentSection();
+          // reloadComments()
           buildCommentSection(commentsArr);
         });
     });
@@ -197,7 +221,6 @@ function likeButtonListners() {
   const likeButtons = document.querySelectorAll(
     ".comment__interaction-button--like"
   );
-  console.log()
   likeButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
       const id = event.currentTarget.name;
@@ -206,8 +229,11 @@ function likeButtonListners() {
           `https://project-1-api.herokuapp.com/comments/${id}/like/?api_key=${api_key}`
         )
         .then((response) => {
-          commentsArr[commentsArr.indexOf(commentsArr.find((o) => o.id === id))].likes = response.data.likes;
+          commentsArr[
+            commentsArr.indexOf(commentsArr.find((o) => o.id === id))
+          ].likes = response.data.likes;
           resetCommentSection();
+          // reloadComments()
           buildCommentSection(commentsArr);
         });
     });
