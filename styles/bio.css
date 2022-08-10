@@ -598,6 +598,7 @@ body {
   border-style: none;
   border-radius: 0.25rem;
   transition: ease 0.25s;
+  cursor: pointer;
 }
 .form__button:hover {
   background-color: #000000;
@@ -649,6 +650,10 @@ body {
 .comment__header-container {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+.comment__header-text--time {
+  color: #E1E1E1;
 }
 .comment-feed {
   border-top: 1px solid #E1E1E1;

@@ -15,6 +15,7 @@ reloadComments();
 // Loop through each comment in array and call createComment routine for each
 function buildCommentSection(Arr) {
   Arr = Arr.sort((a, b) => b.timestamp - a.timestamp);
+  resetCommentSection();
   Arr.forEach((comment) => {
     createComment(comment);
   });
@@ -41,11 +42,10 @@ commentform.addEventListener("submit", (SubmitEvent) => {
         newComment
       )
       .then((response) => {
+        SubmitEvent.preventDefault();
         commentsArr.unshift(response.data);
         const parentContainer = document.querySelector(".comment-feed");
-        resetCommentSection();
-        buildCommentSection(commentsArr);
-        // reloadComments()
+        reloadComments();
         SubmitEvent.target.reset();
         SubmitEvent.target.name.classList.remove("form__text-input--error");
         SubmitEvent.target.comment.classList.remove("form__text-input--error");
@@ -111,9 +111,10 @@ function createComment(obj) {
   // Create date element in header container
   const commentDate = createElement(
     headerContainer,
-    "comment__header-text",
+    "comment__header-text--time",
     "p",
-    formatDate(obj.timestamp)
+    // formatDate(obj.timestamp)
+    timeSince(obj.timestamp)
   );
   //Create comment text element in comment text container
   const commentText = createElement(
@@ -182,6 +183,56 @@ function formatDate(timestamp) {
   return postDate;
 }
 
+function timeSince(date) {
+  const seconds = Math.floor((new Date() - date) / 1000);
+
+  let interval = seconds / 31536000;
+  if (interval > 1) {
+    if (interval < 2) {
+      return Math.floor(interval) + " year  ago";
+    } else {
+      return Math.floor(interval) + " years  ago";
+    }
+  }
+  interval = seconds / 2592000;
+  if (interval > 1) {
+    if (interval < 2) {
+      return Math.floor(interval) + " month  ago";
+    } else {
+      return Math.floor(interval) + " months  ago";
+    }
+  }
+  interval = seconds / 86400;
+  if (interval > 1) {
+    if (interval < 2) {
+      return Math.floor(interval) + " day  ago";
+    } else {
+      return Math.floor(interval) + " days  ago";
+    }
+  }
+  interval = seconds / 3600;
+  if (interval > 1) {
+    if (interval < 2) {
+      return Math.floor(interval) + " hour  ago";
+    } else {
+      return Math.floor(interval) + " hours  ago";
+    }
+  }
+  interval = seconds / 60;
+  if (interval > 1) {
+    if (interval < 2) {
+      return Math.floor(interval) + " minute  ago";
+    } else {
+      return Math.floor(interval) + " minutes  ago";
+    }
+  }
+  interval = seconds;
+  if (interval > 30) {
+    return " 30 seconds  ago";
+  }
+  return "Just now";
+}
+
 // Clear comment section addition of new comment
 function resetCommentSection() {
   const parentContainer = document.querySelector(".comment-feed");
@@ -208,9 +259,7 @@ function deleteButtonlistners() {
             commentsArr.indexOf(commentsArr.find((o) => o.id === id)),
             1
           );
-          resetCommentSection();
-          // reloadComments()
-          buildCommentSection(commentsArr);
+          reloadComments();
         });
     });
   });
@@ -232,9 +281,7 @@ function likeButtonListners() {
           commentsArr[
             commentsArr.indexOf(commentsArr.find((o) => o.id === id))
           ].likes = response.data.likes;
-          resetCommentSection();
-          // reloadComments()
-          buildCommentSection(commentsArr);
+          reloadComments();
         });
     });
   });
