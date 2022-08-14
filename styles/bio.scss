@@ -97,9 +97,9 @@
     }
   }
   &__block {
-    display: flex;
-    flex-direction: column;
-    @include tablet {
+    
+    // flex-direction: column;
+    @include tablet {display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -110,7 +110,7 @@
     }
   }
   &__item {
-    margin: 3rem 0;
+    margin: 1rem 0;
     @include tablet {
       width: 31%;
       margin: 1rem 0;

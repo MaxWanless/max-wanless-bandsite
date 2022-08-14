@@ -11,8 +11,7 @@
   padding: 1rem;
   background-color: $primary-color-white;
   @include desktop {
-    margin: auto;
-    max-width: 65rem;
+    margin: 3rem auto 2rem auto;
   }
   @include desktop {
     flex-direction: row;
@@ -24,6 +23,7 @@
     margin: 1.5rem 0 1rem 0;
     @include desktop {
       margin: 0;
+      font-size: 2.5rem;
     }
 
     &-container {
@@ -34,7 +34,7 @@
       @include desktop {
         align-items: flex-start;
         justify-content: flex-start;
-        max-width: 5rem;
+        width: 15%;
         height: 100%;
       }
     }
@@ -43,8 +43,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    @include tablet {
-      // width: 80%;
+    @include desktop {
+       width: 85%;
     }
     &-tr {
       display: flex;
@@ -74,11 +74,18 @@
           color: $primary-color-silver;
           font-weight: bold;
         }
+        @include desktop{
+          margin-bottom: 0;
+          margin-top: 1.25rem;
+        }
       }
     }
     &-td {
       width: 100%;
       margin-bottom: 1.25rem;
+      &:nth-child(2){
+        font-weight: 700;
+      }
       @include tablet {
         width: 25%;
         margin-bottom: 0;
@@ -103,12 +110,14 @@
     background-color: $primary-color-black;
     font-size: 1.25rem;
     color: $primary-color-white;
-    height: 3rem;
+    height: 2.5rem;
     width: 100%;
     border-style: none;
     border-radius: 0.25rem;
     transition: ease 0.25s;
     @include tablet {
+      font-size: 1rem;
+      max-width: 150px;
       width: 25%;
     }
     &:hover {

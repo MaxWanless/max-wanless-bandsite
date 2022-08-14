@@ -113,7 +113,6 @@ function createComment(obj) {
     headerContainer,
     "comment__header-text--time",
     "p",
-    // formatDate(obj.timestamp)
     timeSince(obj.timestamp)
   );
   //Create comment text element in comment text container
@@ -173,16 +172,7 @@ function createElement(parent, className, elementType, data, id) {
   return child;
 }
 
-//Function for formatting Date from time stamp
-function formatDate(timestamp) {
-  let postDate = new Date(timestamp);
-  let day = String(postDate.getDate()).padStart(2, "0");
-  let month = String(postDate.getMonth() + 1).padStart(2, "0");
-  let year = postDate.getFullYear();
-  postDate = day + "/" + month + "/" + year;
-  return postDate;
-}
-
+//Calculate time since post and return timestamp
 function timeSince(date) {
   const seconds = Math.floor((new Date() - date) / 1000);
 
@@ -233,7 +223,7 @@ function timeSince(date) {
   return "Just now";
 }
 
-// Clear comment section addition of new comment
+// Clear comment section 
 function resetCommentSection() {
   const parentContainer = document.querySelector(".comment-feed");
   const commentList = document.querySelectorAll(".comment");
@@ -255,10 +245,10 @@ function deleteButtonlistners() {
           `https://project-1-api.herokuapp.com/comments/${id}/?api_key=${api_key}`
         )
         .then((response) => {
-          commentsArr.splice(
-            commentsArr.indexOf(commentsArr.find((o) => o.id === id)),
-            1
-          );
+          // commentsArr.splice(
+          //   commentsArr.indexOf(commentsArr.find((o) => o.id === id)),
+          //   1
+          // );
           reloadComments();
         });
     });
