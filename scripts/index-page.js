@@ -1,16 +1,19 @@
-let commentsArr = [];
+//Insert API key as a string into this variable
 const api_key = "db929eb2-0379-4372-9686-78554ac854bf";
 
-//Build Initial comment Section based on array.
+//Call reload comments function to build initial comment section
+reloadComments();
+
+//Call Axios to retrieve comment data
 function reloadComments() {
   axios
     .get(`https://project-1-api.herokuapp.com/comments/?api_key=${api_key}`)
     .then((response) => {
-      commentsArr = response.data;
       buildCommentSection(response.data);
+    }).catch((error)=>{
+      console.log(error)
     });
 }
-reloadComments();
 
 // Loop through each comment in array and call createComment routine for each
 function buildCommentSection(Arr) {
@@ -23,11 +26,10 @@ function buildCommentSection(Arr) {
   likeButtonListners();
 }
 
-// Post new comment to array when Submit button is pressed.
+// Post new comment to axios API
 const commentform = document.querySelector(".form");
 commentform.addEventListener("submit", (SubmitEvent) => {
   SubmitEvent.preventDefault();
-
   if (
     SubmitEvent.target.name.value.length > 0 &&
     SubmitEvent.target.comment.value.length > 0
@@ -43,8 +45,6 @@ commentform.addEventListener("submit", (SubmitEvent) => {
       )
       .then((response) => {
         SubmitEvent.preventDefault();
-        commentsArr.unshift(response.data);
-        const parentContainer = document.querySelector(".comment-feed");
         reloadComments();
         SubmitEvent.target.reset();
         SubmitEvent.target.name.classList.remove("form__text-input--error");
@@ -165,14 +165,14 @@ function createElement(parent, className, elementType, data, id) {
   } else {
   }
   if (id != null) {
-    child.setAttribute("name", id);
+    child.setAttribute("id", id);
   } else {
   }
   parent.appendChild(child);
   return child;
 }
 
-//Calculate time since post and return timestamp
+//Calculate time since post and return timestamp updates on next comment section reload
 function timeSince(date) {
   const seconds = Math.floor((new Date() - date) / 1000);
 
@@ -223,7 +223,7 @@ function timeSince(date) {
   return "Just now";
 }
 
-// Clear comment section 
+// Clear comment section on reload
 function resetCommentSection() {
   const parentContainer = document.querySelector(".comment-feed");
   const commentList = document.querySelectorAll(".comment");
@@ -232,46 +232,45 @@ function resetCommentSection() {
   });
 }
 
-//Delete selected comment
+//Comment deleting function
 function deleteButtonlistners() {
   const deleteButtons = document.querySelectorAll(
     ".comment__interaction-button--delete"
   );
   deleteButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
-      const id = event.currentTarget.name;
+      const id = event.currentTarget.id;
       axios
         .delete(
           `https://project-1-api.herokuapp.com/comments/${id}/?api_key=${api_key}`
         )
         .then((response) => {
-          // commentsArr.splice(
-          //   commentsArr.indexOf(commentsArr.find((o) => o.id === id)),
-          //   1
-          // );
           reloadComments();
+        })
+        .catch((error) => {
+          console.log(error);
         });
     });
   });
 }
 
-//like selected comment
+//Comment liking function
 function likeButtonListners() {
   const likeButtons = document.querySelectorAll(
     ".comment__interaction-button--like"
   );
   likeButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
-      const id = event.currentTarget.name;
+      const id = event.currentTarget.id;
       axios
         .put(
           `https://project-1-api.herokuapp.com/comments/${id}/like/?api_key=${api_key}`
         )
         .then((response) => {
-          commentsArr[
-            commentsArr.indexOf(commentsArr.find((o) => o.id === id))
-          ].likes = response.data.likes;
           reloadComments();
+        })
+        .catch((error) => {
+          console.log(error);
         });
     });
   });

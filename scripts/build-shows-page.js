@@ -1,12 +1,19 @@
-let showsArr = [];
 const api_key = "db929eb2-0379-4372-9686-78554ac854bf";
 
-axios
-  .get(`https://project-1-api.herokuapp.com/showdates/?api_key=${api_key}`)
-  .then((response) => {
-    showsArr = response.data;
-    buildShowSection(showsArr);
-  });
+//Build Initial shows section
+reloadShows()
+
+//Call Axios to retrieve show data
+function reloadShows() {
+  axios
+    .get(`https://project-1-api.herokuapp.com/showdates/?api_key=${api_key}`)
+    .then((response) => {
+      buildShowSection(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
 // Create show section
 function buildShowSection(Arr) {
@@ -141,6 +148,6 @@ function createTableEventListners() {
 
 //Function for formatting Date from time stamp
 function formatDate(timestamp) {
-  formatedDate = new Date(timestamp).toDateString();
+  let formatedDate = new Date(timestamp).toDateString();
   return formatedDate;
 }
