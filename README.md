@@ -13,7 +13,7 @@ This project was completed as part of the BrainStation Web-Development bootcamp.
 - [Contact Me](#-contact)
 
 ## 📲 Live Demo
-Please follow the link to view a live [Demo](https://trailblzr-client.herokuapp.com/)
+Please follow the link to view a live [Demo](https://max-wanless-bandsite.netlify.app/)
 
 ## 💻 Tech Stack
 
