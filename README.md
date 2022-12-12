@@ -1,4 +1,4 @@
-# 🗻 Bandsite
+# 🎸 Bandsite
 
 This project was completed as part of the BrainStation Web-Development bootcamp.
 
@@ -34,7 +34,7 @@ Please follow the link to view a live [Demo](https://trailblzr-client.herokuapp.
 
 ## 📸 Screenshots
 
-<img align="left" alt="Screenshots" width="100%" src="./assets/screenshots\BandSite_desktop.png" />
+<img align="left" alt="Screenshots" width="100%" src="./assets\Screenshots\BandSite_desktop.png" />
 desktop view
 <br />
 
