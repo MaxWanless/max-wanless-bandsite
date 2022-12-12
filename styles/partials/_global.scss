@@ -105,10 +105,10 @@ body {
   background-repeat: no-repeat;
   position: relative;
   &--bio {
-    background-image: url("./max-wanless-bandsite//assets/Images/hero-bio.jpg");
+    background-image: url("../../max-wanless-bandsite/assets/Images/hero-bio.jpg");
   }
   &--shows {
-    background-image: url("./max-wanless-bandsite//assets/Images/hero-shows.jpg");
+    background-image: url("../../max-wanless-bandsite/assets/Images/hero-shows.jpg");
   }
   @include tablet {
     height: 55vh;
