@@ -1,4 +1,4 @@
-# 🗻 Bandsite
+# 🎸 Bandsite
 
 This project was completed as part of the BrainStation Web-Development bootcamp.
 
